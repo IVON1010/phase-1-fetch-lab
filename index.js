@@ -1,5 +1,12 @@
 function fetchBooks() {
   // To pass the tests, don't forget to return your fetch!
+  return fetch("https://anapioficeandfire.com/api/books")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      renderBooks(data)
+    })
   
 }
 
@@ -15,3 +22,28 @@ function renderBooks(books) {
 document.addEventListener('DOMContentLoaded', function() {
   fetchBooks();
 });
+
+
+fetch("https://anapioficeandfire.com/api/books")
+  .then((resp) => resp.json())
+  .then((json) => {
+    let pages = json.map(obj => obj.numberOfPages);
+    let totalPages = pages.reduce((accum, curr) => accum += curr, 0);
+    console.log(totalPages);
+    return totalPages;
+  });
+
+
+
+  fetch("https://anapioficeandfire.com/api/books")
+  .then((resp) => resp.json())
+  .then((json) => {
+    let characters = json.map(obj => obj.characters);
+    let mergedCharacters = characters.flat(1);
+    for (let char of mergedCharacters) {
+      if (char === "https://anapioficeandfire.com/api/characters/1031") {
+        console.log(char)
+        return char;
+      }
+    }
+  });
